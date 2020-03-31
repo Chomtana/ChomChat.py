@@ -1,0 +1,4 @@
+from ChomChat.ChomChatGlobalConfigBase import ChomChatGlobalConfigBase
+
+class ChomChatGlobalConfig(ChomChatGlobalConfigBase):
+  pass
