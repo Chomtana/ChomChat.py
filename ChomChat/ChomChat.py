@@ -5,10 +5,11 @@ from typing import Dict, List, Callable
 
 
 class ChomChat:
-    global_config: ChomChatGlobalConfigBase
+    global_config: ChomChatGlobalConfigBase = ChomChatGlobalConfigBase()
     chat_state_defs: Dict[str, type] = {}
     contexts: Dict[str, Context] = {}
     context_builders: Dict[str, Callable] = {}
+    context_getters: Dict[str, Callable] = {}
 
     def load_global_config(self, global_config):
         self.global_config = global_config
@@ -19,24 +20,46 @@ class ChomChat:
     def register_context_builder(self, provider_name: str, f: Callable):
         self.context_builders[provider_name] = f
 
-    def build_context(self, provider_name: str, id_: str, raw_data):
-        return self.context_builders[provider_name](id_, raw_data)
+    def register_context_getter(self, provider_name: str, f: Callable):
+        self.context_getters[provider_name] = f
+
+    def build_context(self, provider_name: str, raw_data):
+        return self.context_builders[provider_name](raw_data)
 
     def get_context(self, provider_name: str, id_: str, raw_data=None):
         key = provider_name + ' ' + id_
         if raw_data is None: return self.contexts[key]
         if key in self.contexts: return self.contexts[key]
-        self.contexts[key] = self.build_context(provider_name, id_, raw_data)
+        self.contexts[key] = self.build_context(provider_name, raw_data)
         return self.contexts[key]
+
+    def get_context_by_raw(self, provider_name: str, raw_data):
+        return self.context_getters[provider_name](raw_data)
+
 
 global_chom_chat = ChomChat()
 
+
 class User:
-    display_name: str
-    id: str
     provider_name: str
-    context: Context
+    id: str
+
+    display_name: str
+    picture_url: str
     raw: object
+
+    context: Context
+
+    def __init__(
+        self, provider_name, id_, display_name, raw,
+        picture_url = global_chom_chat.global_config.BLANK_USER_PICTURE_URL
+    ):
+        self.provider_name = provider_name
+        self.id = id_
+        self.display_name = display_name
+        self.picture_url = picture_url
+        self.raw = raw
+        self.context = Context(self)
 
 
 class Context:

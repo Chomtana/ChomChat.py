@@ -14,3 +14,10 @@ def RegisterContextBuilder(provider_name):
         global_chom_chat.register_context_builder(provider_name, f)
         return f
     return wrap
+
+
+def RegisterContextGetter(provider_name):
+    def wrap(f):
+        global_chom_chat.register_context_getter(provider_name, f)
+        return f
+    return wrap

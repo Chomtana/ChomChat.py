@@ -2,18 +2,19 @@ import uvicorn
 from fastapi import FastAPI, Request, Body
 from ChomChat.ChomChat import ChatState, global_chom_chat
 from ChomChat.Decorator import RegisterChatState
+from config import ChomChatGlobalConfig
 
-app = FastAPI()
+global_chom_chat.load_global_config(ChomChatGlobalConfig())
+
+from app import app
+
+from providers.line.api import *
 
 @app.get("/")
 def read_root():
   test = ChatState()
   test.name = "dsadas"
   return test
-
-@app.post("/")
-async def post_test(body = Body(...)):
-    return body
 
 
 @app.get("/items/{item_id}")
