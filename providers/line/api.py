@@ -10,4 +10,6 @@ async def line(body: LineRequest):
     for raw in body.events:
         raw.destination = body.destination
         context = context_getter(raw)
+        if raw.message['type'] == 'text':
+            context.perform_on_message(raw.message['text'])
     return body

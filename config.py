@@ -1,6 +1,8 @@
-from ChomChat.ChomChatGlobalConfigBase import ChomChatGlobalConfigBase
+from sqlalchemy import create_engine
 
-DEV_MODE = True
+DEBUG_MODE = True
+CHAT_STATE_DEBUG_MODE = True
 
-class ChomChatGlobalConfig(ChomChatGlobalConfigBase):
-  pass
+DB: object = create_engine('sqlite://')
+
+BLANK_USER_PICTURE_URL = "https://upload.wikimedia.org/wikipedia/commons/3/34/PICA.jpg"

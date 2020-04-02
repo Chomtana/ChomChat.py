@@ -1,18 +1,14 @@
 from __future__ import annotations
 
-from ChomChat.ChomChatGlobalConfigBase import ChomChatGlobalConfigBase
 from typing import Dict, List, Callable
+from config import *
 
 
 class ChomChat:
-    global_config: ChomChatGlobalConfigBase = ChomChatGlobalConfigBase()
     chat_state_defs: Dict[str, type] = {}
     contexts: Dict[str, Context] = {}
     context_builders: Dict[str, Callable] = {}
     context_getters: Dict[str, Callable] = {}
-
-    def load_global_config(self, global_config):
-        self.global_config = global_config
 
     def register_chat_state(self, name: str, chat_state_class: type):
         self.chat_state_defs[name] = chat_state_class;
@@ -52,7 +48,7 @@ class User:
 
     def __init__(
         self, provider_name, id_, display_name, raw,
-        picture_url = global_chom_chat.global_config.BLANK_USER_PICTURE_URL
+        picture_url = BLANK_USER_PICTURE_URL
     ):
         self.provider_name = provider_name
         self.id = id_
@@ -114,30 +110,39 @@ class Context:
 
 class ChatState:
     context: Context
+    name: str
 
     def __init__(self, context: Context):
         self.context = context
 
     def on_enter(self, from_: ChatState, args, is_interrupt: bool):
-        pass
-
-    def on_return(self, from_: ChatState, args):
-        pass
+        if DEBUG_MODE and CHAT_STATE_DEBUG_MODE:
+            print(f'[CSDBG] User "{self.context.user.display_name}" ENTER {self.name} with args {str(args)} {"INTERRUPT" if is_interrupt else ""}')
 
     def on_message(self, message: str):
-        pass
+        if DEBUG_MODE and CHAT_STATE_DEBUG_MODE:
+            print(f'[CSDBG] User "{self.context.user.display_name}" MESSAGE {self.name} with message "{message}"')
 
     def on_finish(self, args):
-        pass
+        if DEBUG_MODE and CHAT_STATE_DEBUG_MODE:
+            return_to = self.context.chat_states[-2].name if len(self.context.chat_states) > 1 else "_null"
+            print(f'[CSDBG] User "{self.context.user.display_name}" FINISH {self.name} with args {str(args)} and will return to {return_to}')
 
     def on_next(self, to: ChatState, args):
-        pass
+        if DEBUG_MODE and CHAT_STATE_DEBUG_MODE:
+            print(f'[CSDBG] User "{self.context.user.display_name}" NEXT FROM {self.name} TO {to.name} with args {str(args)}')
+
+    def on_return(self, from_: ChatState, args):
+        if DEBUG_MODE and CHAT_STATE_DEBUG_MODE:
+            print(f'[CSDBG] User "{self.context.user.display_name}" RETURN TO {self.name} FROM {from_.name} with args {str(args)}')
 
     def before_interrupt(self, by: ChatState, args):
-        pass
+        if DEBUG_MODE and CHAT_STATE_DEBUG_MODE:
+            print(f'[CSDBG] User "{self.context.user.display_name}" BEFORE INTERRUPT {self.name} with args {str(args)}')
 
     def after_interrupt(self, by: ChatState, args):
-        pass
+        if DEBUG_MODE and CHAT_STATE_DEBUG_MODE:
+            print(f'[CSDBG] User "{self.context.user.display_name}" AFTER INTERRUPT{self.name} with args {str(args)}')
 
 
 class StateBase:
