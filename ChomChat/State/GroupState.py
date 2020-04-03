@@ -1,4 +1,4 @@
-from ChomChat.ChomChat import StateBase
+from ChomChat import StateBase
 
 
 class GroupState(StateBase):

@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI, Request, Body
-from ChomChat.ChomChat import ChatState, global_chom_chat
+from ChomChat import ChatState
+from ChomChat.ChomChat import global_chom_chat
 from ChomChat.Decorator import RegisterChatState
 
 from app import app

@@ -1,4 +1,4 @@
-from ChomChat.ChomChat import ChatState, Context
+from ChomChat import ChatState, Context
 from ChomChat.Decorator import RegisterChatState
 
 

@@ -1,5 +1,5 @@
 from ChomChat.Decorator import RegisterContextBuilder
-from ChomChat.ChomChat import User
+from ChomChat import User
 from providers.line.request_model import LineRequestEvent, LineUser
 from providers.line.config import *
 
