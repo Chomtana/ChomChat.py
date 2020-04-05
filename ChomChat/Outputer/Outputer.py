@@ -59,3 +59,6 @@ class Outputer:
             raise Exception('Cannot commit output: Not in a session (maybe you forget queue_name)')
         else:
             self.queues[queue_name].commit()
+
+    def clear(self, queue_name='_session'):
+        self.queues[queue_name].clear()

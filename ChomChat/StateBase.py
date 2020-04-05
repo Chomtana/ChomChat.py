@@ -6,20 +6,23 @@ from config import *
 if TYPE_CHECKING:
     from ChomChat import Context
 
+
 class StateBase:
     _parent: StateBase
     _context: Context
     _name: str
-    _backprop: bool = False
-    _is_state: bool = False
+    _backprop: bool
+    _is_state: bool
 
     _children: List[StateBase]
 
     def __init__(self, parent, name, default=None):
         self._children = []
+        self._backprop = False
 
         self._parent = parent
-        self._context = parent.context
+        if parent is not None:
+            self._context = parent.context
         self._name = name
         self._value = self.load_value() or default
         for (key, value) in self.__class__.__dict__.items():

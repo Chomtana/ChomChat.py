@@ -13,6 +13,8 @@ from providers.line.output_with_queue import *
 
 @app.post("/chomchat/line")
 async def line(body: LineRequest):
+    if body.destination is None: return body
+
     for raw in body.events:
         raw.destination = body.destination
         context = context_getter(raw)

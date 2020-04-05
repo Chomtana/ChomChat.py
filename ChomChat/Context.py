@@ -6,6 +6,8 @@ if TYPE_CHECKING:
 
 from ChomChat.Outputer import Outputer
 from ChomChat.ChomChat import global_chom_chat
+from states.RootState import RootState
+from ChomChat.Scheduler import Scheduler
 
 
 class Context:
@@ -14,9 +16,11 @@ class Context:
     user: User
 
     outputer: Outputer
+    scheduler: Scheduler
 
     def __init__(self, user: User):
         self.chat_states = []
+        self.state = RootState(self)
 
         user.context = self
         global_chom_chat.contexts[user.id] = self
@@ -24,6 +28,7 @@ class Context:
         self.user = user
 
         self.outputer = Outputer(self)
+        self.scheduler = Scheduler(self)
 
         self.interrupt('_start')
 

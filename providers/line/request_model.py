@@ -19,7 +19,7 @@ class LineRequestEvent(BaseModel):
     replyToken: str
     source: LineRequestSource
     timestamp: int
-    mode: str
+    mode: Optional[str]
     message: Dict[str, str]
     user: Optional[LineUser]
     destination: Optional[str]
@@ -27,4 +27,4 @@ class LineRequestEvent(BaseModel):
 
 class LineRequest(BaseModel):
     events: List[LineRequestEvent]
-    destination: str
+    destination: Optional[str]

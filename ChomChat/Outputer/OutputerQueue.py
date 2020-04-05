@@ -43,3 +43,6 @@ class OutputerQueue:
         for d in self.data:
             res.append(d.format(provider_name))
         return res
+
+    def clear(self):
+        self.data = []
