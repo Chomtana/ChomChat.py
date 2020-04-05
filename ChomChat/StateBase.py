@@ -13,9 +13,11 @@ class StateBase:
     _backprop: bool = False
     _is_state: bool = False
 
-    _children: List[StateBase] = []
+    _children: List[StateBase]
 
     def __init__(self, parent, name, default=None):
+        self._children = []
+
         self._parent = parent
         self._context = parent.context
         self._name = name

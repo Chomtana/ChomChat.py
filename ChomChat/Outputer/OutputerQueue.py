@@ -13,9 +13,11 @@ class OutputerQueue:
     outputer: Outputer
     name: str
     metadata: Any
-    data: List[Component] = []
+    data: List[Component]
 
     def __init__(self, outputer: Outputer, name: str, metadata):
+        self.data = []
+
         self.outputer = outputer
         self.name = name
         self.metadata = metadata

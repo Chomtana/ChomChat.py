@@ -13,11 +13,13 @@ from ChomChat.Outputer.GlobalRegister import outputer_without_queue
 class Outputer:
     context: Context
 
-    queues: Dict[str, OutputerQueue] = {}
+    queues: Dict[str, OutputerQueue]
 
     session_count: int = 0
 
     def __init__(self, context: Context):
+        self.queues = {}
+
         self.context = context
 
     def send(self, message: Component):

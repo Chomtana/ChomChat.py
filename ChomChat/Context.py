@@ -9,13 +9,15 @@ from ChomChat.ChomChat import global_chom_chat
 
 
 class Context:
-    chat_states: List[ChatState] = []
+    chat_states: List[ChatState]
     state: StateBase
     user: User
 
     outputer: Outputer
 
     def __init__(self, user: User):
+        self.chat_states = []
+
         user.context = self
         global_chom_chat.contexts[user.id] = self
 
