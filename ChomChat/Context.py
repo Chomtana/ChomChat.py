@@ -4,30 +4,29 @@ from typing import TYPE_CHECKING, List
 if TYPE_CHECKING:
     from ChomChat import ChomChat, ChatState, StateBase, User
 
-from outputter import Outputer
+from ChomChat.Outputer import Outputer
 from ChomChat.ChomChat import global_chom_chat
 
+
 class Context:
-    chom_chat: ChomChat
     chat_states: List[ChatState] = []
     state: StateBase
     user: User
 
     outputer: Outputer
 
-    def __init__(self, user: User, chom_chat: ChomChat = global_chom_chat):
+    def __init__(self, user: User):
         user.context = self
-        chom_chat.contexts[user.id] = self
+        global_chom_chat.contexts[user.id] = self
 
         self.user = user
-        self.chom_chat = chom_chat
 
         self.outputer = Outputer(self)
 
         self.interrupt('_start')
 
     def interrupt(self, name, args=dict()):
-        interrupter = self.chom_chat.chat_state_defs[name](self)
+        interrupter = global_chom_chat.chat_state_defs[name](self)
         old = self.chat_state
         old.before_interrupt(interrupter, args)
         self.chat_states.append(interrupter)
@@ -36,7 +35,7 @@ class Context:
 
     def next(self, name, args=dict()):
         if len(self.chat_states) == 0: return self.interrupt(name, args)
-        to = self.chom_chat.chat_state_defs[name](self)
+        to = global_chom_chat.chat_state_defs[name](self)
         old = self.chat_state
         old.on_next(to, args)
         self.chat_states[-1] = to
@@ -50,7 +49,7 @@ class Context:
 
     @property
     def chat_state(self):
-        if len(self.chat_states) == 0: self.chat_states.append(self.chom_chat.chat_state_defs['_null'](self))
+        if len(self.chat_states) == 0: self.chat_states.append(global_chom_chat.chat_state_defs['_null'](self))
         return self.chat_states[-1]
 
     @chat_state.setter

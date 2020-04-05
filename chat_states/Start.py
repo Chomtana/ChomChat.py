@@ -1,5 +1,6 @@
 from ChomChat import ChatState, Context
 from ChomChat.Decorator import RegisterChatState
+from outputer.basic.Text import Text
 
 
 @RegisterChatState("_start")
@@ -16,7 +17,7 @@ class Start(ChatState):
 
     def on_message(self, message: str):
         # Code here
-
+        self.context.outputer.send(Text(message))
         super().on_message(message)
 
     def on_finish(self, args):

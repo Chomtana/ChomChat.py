@@ -12,6 +12,7 @@ from providers.line.api import *
 # Init chat states
 from chat_states import *
 
+
 @app.get("/")
 def read_root():
   test = ChatState()
