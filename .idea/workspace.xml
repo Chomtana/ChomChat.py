@@ -2,17 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="73d1ca10-583d-4071-868c-5e401fd4306e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ChomChat/Scheduler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ChomChat/SqlModel/UserRaw.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ChomChat/SqlModel/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/providers/line/build_user.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pydantic_config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql_models/UserCenter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql_models/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChomChat/Context.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChomChat/Context.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChomChat/Outputer/Outputer.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChomChat/Outputer/Outputer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChomChat/Outputer/OutputerQueue.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChomChat/Outputer/OutputerQueue.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChomChat/Scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChomChat/Scheduler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChomChat/StateBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChomChat/StateBase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChomChat/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChomChat/User.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChomChat/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChomChat/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat_states/Start.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_states/Start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/providers/line/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/providers/line/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/providers/line/context_builder.py" beforeDir="false" afterPath="$PROJECT_DIR$/providers/line/context_builder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/providers/line/context_getter.py" beforeDir="false" afterPath="$PROJECT_DIR$/providers/line/context_getter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/providers/line/request_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/providers/line/request_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/states/RootState.py" beforeDir="false" afterPath="$PROJECT_DIR$/states/RootState.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,18 +48,20 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ChomChat/Outputer" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ChomChat/SqlModel" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="G:\ChomChat\ChomChat\Outputer" />
-      <recent name="G:\ChomChat\chat_states" />
-      <recent name="G:\ChomChat\ChomChat\State" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="G:\ChomChat\states" />
       <recent name="G:\ChomChat\chat_states" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\ChomChat\ChomChat\SqlModel" />
+      <recent name="G:\ChomChat\sql_models" />
+      <recent name="G:\ChomChat\ChomChat\Outputer" />
+      <recent name="G:\ChomChat\chat_states" />
+      <recent name="G:\ChomChat\ChomChat\State" />
     </key>
   </component>
   <component name="RunManager">
@@ -124,7 +133,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586072410565</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Scheduler success">
+      <created>1586102764966</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1586102764966</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -133,7 +149,8 @@
     <MESSAGE value="Seperate class into files" />
     <MESSAGE value="Echo bot success" />
     <MESSAGE value="Fix dangling reference" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix dangling reference" />
+    <MESSAGE value="Scheduler success" />
+    <option name="LAST_COMMIT_MESSAGE" value="Scheduler success" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#Inspections" timestamp="1585583240092">
@@ -148,42 +165,42 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1585840161942" />
-    <state x="614" y="114" key="CommitChangelistDialog2" timestamp="1586072408964">
+    <state x="614" y="114" key="CommitChangelistDialog2" timestamp="1586102763020">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="614" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586072408964" />
+    <state x="614" y="114" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1586102763020" />
     <state x="740" y="283" key="FileChooserDialogImpl" timestamp="1585581459954">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="283" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1585581459954" />
-    <state width="1899" height="282" key="GridCell.Tab.0.bottom" timestamp="1586102713549">
+    <state width="1899" height="282" key="GridCell.Tab.0.bottom" timestamp="1586340536686">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586102713549" />
-    <state width="1899" height="282" key="GridCell.Tab.0.center" timestamp="1586102713549">
+    <state width="1899" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1586340536686" />
+    <state width="1899" height="282" key="GridCell.Tab.0.center" timestamp="1586340536686">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586102713549" />
-    <state width="1899" height="282" key="GridCell.Tab.0.left" timestamp="1586102713548">
+    <state width="1899" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1586340536686" />
+    <state width="1899" height="282" key="GridCell.Tab.0.left" timestamp="1586340536686">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586102713548" />
-    <state width="1899" height="282" key="GridCell.Tab.0.right" timestamp="1586102713549">
+    <state width="1899" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1586340536686" />
+    <state width="1899" height="282" key="GridCell.Tab.0.right" timestamp="1586340536686">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586102713549" />
+    <state width="1899" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1586340536686" />
     <state x="461" y="162" key="SettingsEditor" timestamp="1585583364905">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1585583364905" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1586072413070">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1586102767352">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586072413070" />
-    <state x="661" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1586049264549">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586102767352" />
+    <state x="661" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1586317553192">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="661" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586049264549" />
+    <state x="661" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586317553192" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1585620408525">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

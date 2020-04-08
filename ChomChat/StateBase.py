@@ -12,7 +12,7 @@ class StateBase:
     _context: Context
     _name: str
     _backprop: bool
-    _is_state: bool
+    _is_state: bool = False
 
     _children: List[StateBase]
 
@@ -23,6 +23,7 @@ class StateBase:
         self._parent = parent
         if parent is not None:
             self._context = parent.context
+
         self._name = name
         self._value = self.load_value() or default
         for (key, value) in self.__class__.__dict__.items():

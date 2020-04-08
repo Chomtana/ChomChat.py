@@ -1,10 +1,11 @@
 from ChomChat import ChatState, Context
 from ChomChat.Decorator import RegisterChatState
+from ChomChat.Scheduler import Timer
 from outputer.basic.Text import Text
 
 
-def schtest(context: Context, msg):
-    context.outputer.send_instant(Text('5 sec passed '+msg))
+def schtest(timer: Timer, msg):
+    timer.context.outputer.send_instant(Text('5 sec passed '+msg))
 
 
 @RegisterChatState("_start")
@@ -22,7 +23,8 @@ class Start(ChatState):
     def on_message(self, message: str):
         # Code here
         self.context.outputer.send(Text(message))
-        self.context.scheduler.set_timeout(schtest, 5, 'testmsg')
+        #self.context.scheduler.schedule_interval(schtest, 10, 5, msg='testmsg234')
+
         super().on_message(message)
 
     def on_finish(self, args):

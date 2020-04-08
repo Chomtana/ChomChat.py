@@ -1,5 +1,6 @@
 from typing import List, Dict, Optional
 from pydantic import BaseModel
+from pydantic_config import PydanticConfig
 
 
 class LineUser(BaseModel):
@@ -8,10 +9,14 @@ class LineUser(BaseModel):
     pictureUrl: str
     statusMessage: str
 
+    Config = PydanticConfig
+
 
 class LineRequestSource(BaseModel):
     userId: str
     type: str
+
+    Config = PydanticConfig
 
 
 class LineRequestEvent(BaseModel):
@@ -19,12 +24,17 @@ class LineRequestEvent(BaseModel):
     replyToken: str
     source: LineRequestSource
     timestamp: int
-    mode: Optional[str]
     message: Dict[str, str]
+
+    mode: Optional[str]
     user: Optional[LineUser]
     destination: Optional[str]
+
+    Config = PydanticConfig
 
 
 class LineRequest(BaseModel):
     events: List[LineRequestEvent]
     destination: Optional[str]
+
+    Config = PydanticConfig

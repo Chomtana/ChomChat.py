@@ -12,7 +12,9 @@ from providers.line.output_with_queue import *
 
 
 @app.post("/chomchat/line")
-async def line(body: LineRequest):
+async def line(body_raw = Body(...)):
+    body: LineRequest = LineRequest(**body_raw)
+    print('[LINE] Request received')
     if body.destination is None: return body
 
     for raw in body.events:

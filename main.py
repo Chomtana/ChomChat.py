@@ -4,13 +4,17 @@ from ChomChat import ChatState
 from ChomChat.ChomChat import global_chom_chat
 from ChomChat.Decorator import RegisterChatState
 
+from config import *
 from app import app
 
 # Init providers
 from providers.line.api import *
 
 # Init chat states
-from chat_states import *
+import chat_states
+import sql_models
+
+DB_SQL_BASE.metadata.create_all(DB_SQL_ENGINE)
 
 
 @app.get("/")
