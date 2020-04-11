@@ -13,5 +13,7 @@ DB = sessionmaker(bind=DB_SQL_ENGINE)()
 BLANK_USER_PICTURE_URL = "https://upload.wikimedia.org/wikipedia/commons/3/34/PICA.jpg"
 USER_DATA_EXPIRE_IN = timedelta(days=1)
 
+NEW_MESSAGE_DEFAULT_TEXT = "คุณได้รับข้อความใหม่"
+
 # more configs in providers/.../config.py
 

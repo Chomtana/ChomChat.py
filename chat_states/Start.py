@@ -1,6 +1,11 @@
 from ChomChat import ChatState, Context
 from ChomChat.Decorator import RegisterChatState
 from ChomChat.Scheduler import Timer
+from outputer.actions import LinkAction
+from outputer.actions.LinkAction import LinkAction
+from outputer.actions.MessageAction import MessageAction
+from outputer.basic.Button import Button
+from outputer.basic.CardBasic import CardBasic
 from outputer.basic.Text import Text
 
 
@@ -22,7 +27,14 @@ class Start(ChatState):
 
     def on_message(self, message: str):
         # Code here
-        self.context.outputer.send(Text(message))
+        self.context.outputer.send(CardBasic(
+            title='test ทดสอบ',
+            body=Text('นี่คือ body'),
+            footer=[
+                Button("btn1", MessageAction("btn1 action")),
+                Button("ปุ่ม 2", LinkAction("https://google.com"))
+            ]
+        ))
         #self.context.scheduler.schedule_interval(schtest, 10, 5, msg='testmsg234')
 
         super().on_message(message)
