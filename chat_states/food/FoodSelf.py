@@ -1,20 +1,10 @@
 from ChomChat import ChatState, Context
 from ChomChat.Decorator import RegisterChatState
-from ChomChat.Scheduler import Timer
-from outputer.actions import LinkAction
-from outputer.actions.LinkAction import LinkAction
-from outputer.actions.MessageAction import MessageAction
-from outputer.basic.Button import Button
-from outputer.basic.CardBasic import CardBasic
 from outputer.basic.Text import Text
 
 
-def schtest(timer: Timer, msg):
-    timer.context.outputer.send_instant(Text('5 sec passed '+msg))
-
-
-@RegisterChatState("_start")
-class Start(ChatState):
+@RegisterChatState("food_self")
+class FoodSelf(ChatState):
     def __init__(self, context: Context):
         # Code here
 
@@ -22,12 +12,12 @@ class Start(ChatState):
 
     def on_enter(self, from_: ChatState, args, is_interrupt: bool):
         # Code here
-
+        self.context.outputer.send(Text("สุดยอดเลย ทำกินเองอร่อยไม่เหมือนใคร แถมยังประหยัดด้วย"))
+        self.context.finish()
         super().on_enter(from_, args, is_interrupt)
 
     def on_message(self, message: str):
         # Code here
-        self.context.next("food_intro")
 
         super().on_message(message)
 
@@ -55,3 +45,4 @@ class Start(ChatState):
         # Code here
 
         super().after_interrupt(by, args)
+

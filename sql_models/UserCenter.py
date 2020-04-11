@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 class UserCenter(DB_SQL_BASE):
-    __tablename__ = 'users_center'
+    __tablename__ = 'chomchat_users_center'
 
     id = Column(Integer, primary_key=True)
 

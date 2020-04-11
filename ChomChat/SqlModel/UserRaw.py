@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 class UserRaw(DB_SQL_BASE):
-    __tablename__ = 'users_raw'
+    __tablename__ = 'chomchat_users_raw'
 
     id = Column(Integer, primary_key=True)
     provider_name = Column(String, nullable=False, index=True)
@@ -15,7 +15,7 @@ class UserRaw(DB_SQL_BASE):
     picture_url = Column(Text, nullable=False)
     raw = Column(JSON)
 
-    user_center_id = Column(Integer, ForeignKey('users_center.id'))
+    user_center_id = Column(Integer, ForeignKey('chomchat_users_center.id'), nullable=False)
     user_center = relationship("UserCenter", back_populates="users_raw")
 
     created_at = Column(DateTime, default=datetime.now)
@@ -27,5 +27,5 @@ class UserRaw(DB_SQL_BASE):
     )
 
     def __repr__(self):
-        return "<User(provider_name='%s', provider_id='%s', display_name='%s', picture_url='%s', user_center_id='%d')>" % (
+        return "<UserRaw(provider_name='%s', provider_id='%s', display_name='%s', picture_url='%s', user_center_id='%d')>" % (
             self.provider_name, self.provider_id, self.display_name, self.picture_url, self.user_center_id)

@@ -52,7 +52,7 @@ class Context:
         from_ = self.chat_state
         from_.on_finish(args)
         self.chat_states.pop()
-        self.chat_state.on_return(self, args)
+        self.chat_state.on_return(from_, args)
 
     @property
     def chat_state(self):

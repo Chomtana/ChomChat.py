@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from typing import Dict, List, Callable, TYPE_CHECKING
+
+from ChomChat.SqlModel.StateModel import StateModel
 from config import *
 
 if TYPE_CHECKING:
@@ -19,48 +21,65 @@ class StateBase:
     def __init__(self, parent, name, default=None):
         self._children = []
         self._backprop = False
+        self._default = default
 
         self._parent = parent
         if parent is not None:
             self._context = parent.context
 
         self._name = name
-        self._value = self.load_value() or default
+
         for (key, value) in self.__class__.__dict__.items():
             if not key[0] == '_' and isinstance(value, StateBase) and value._is_state:
                 self._children.append(value)
         self._is_state = True
+
+        self._model = DB.query(StateModel).filter(
+            StateModel.user_center_id == self._context.user.center.id,
+            StateModel.key == self.path(),
+            StateModel.deleted_at == None,
+        ).one_or_none()
+
+        if self._model is None:
+            self._model = StateModel(user_center_id=self._context.user.center.id, key=self.path(), value=default)
+            DB.add(self._model)
+
+    def path(self):
+        if self._parent is None:
+            return self._name
+        return self._parent.path() + self._name
 
     def __get__(self, instance, owner):
         if not self._is_state: raise Exception('You forget to call super().__init__(parent, name) in some state')
 
         self._before_get('')
         self.before_get('')
-        return self._value
+        if self._model.deleted_at is None:
+            return self._model.value
+        else:
+            return None
 
     def __set__(self, instance, value):
         if not self._is_state: raise Exception('You forget to call super().__init__(parent, name) in some state')
 
-        old = self._value
+        old = self._model.value
         self._before_set(value, old, '')
         self.before_set(value, old, '')
-        self._value = value
+        self._model.value = value
         self._after_set(value, old, '')
         self.after_set(value, old, '')
 
     def __delete__(self, instance):
         if not self._is_state: raise Exception('You forget to call super().__init__(parent, name) in some state')
 
-        old = self._value
+        old = self._model.value
         self._before_delete(old, '')
         self.before_delete(old, '')
-        del self._value
-        self._value = None
+        #del self._value
+        #self._value = None
+        self._model.delete()
         self._after_delete(old, '')
         self.after_delete(old, '')
-
-    def load_value(self):
-        return None
 
     def _before_get(self, path):
         pass
