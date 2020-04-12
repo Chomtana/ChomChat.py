@@ -18,7 +18,7 @@ class StateModel(DB_SQL_BASE):
     deleted_at = Column(DateTime)
 
     __table_args__ = (
-        Index('user_center_id_key_index', 'user_center_id', 'key')
+        Index('user_center_id_key_index', 'user_center_id', 'key'),
     )
 
     def __repr__(self):

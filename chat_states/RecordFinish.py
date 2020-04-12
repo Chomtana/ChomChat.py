@@ -1,9 +1,10 @@
 from ChomChat import ChatState, Context
 from ChomChat.Decorator import RegisterChatState
+from outputer.basic.Text import Text
 
 
-@RegisterChatState("$stateName")
-class _StateName(ChatState):
+@RegisterChatState("record_finish")
+class RecordFinish(ChatState):
     def __init__(self, context: Context):
         # Code here
 
@@ -11,7 +12,8 @@ class _StateName(ChatState):
 
     def on_enter(self, from_: ChatState, args, is_interrupt: bool):
         # Code here
-
+        self.context.outputer.send(Text("เย้ บันทึกรายรับรายจ่ายเรียบร้อยแล้ว"))
+        self.context.finish()
         super().on_enter(from_, args, is_interrupt)
 
     def on_message(self, message: str):

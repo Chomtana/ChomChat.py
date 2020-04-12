@@ -12,7 +12,7 @@ from ChomChat.Scheduler import Scheduler
 
 class Context:
     chat_states: List[ChatState]
-    state: StateBase
+    state: RootState
     user: User
 
     outputer: Outputer
@@ -20,7 +20,6 @@ class Context:
 
     def __init__(self, user: User):
         self.chat_states = []
-        self.state = RootState(self)
 
         user.context = self
         global_chom_chat.contexts[user.id] = self
@@ -29,6 +28,8 @@ class Context:
 
         self.outputer = Outputer(self)
         self.scheduler = Scheduler(self)
+
+        self.state = RootState(self)
 
         self.interrupt('_start')
 
@@ -64,4 +65,8 @@ class Context:
         self.next(new_state)
 
     def perform_on_message(self, message: str):
+        for middleware in global_chom_chat.middleware_store:
+            if middleware.on_message(self, message): return
         self.chat_state.on_message(message)
+        for middleware in reversed(global_chom_chat.middleware_store):
+            if middleware.on_message_return(self, message): return

@@ -40,7 +40,6 @@ class User:
         self.display_name = display_name
         self.picture_url = picture_url
         self.raw = raw
-        self.context = Context(self)
 
         self.raw_model = DB.query(UserRaw).filter(UserRaw.provider_name == provider_name, UserRaw.provider_id == id_).one_or_none()
 
@@ -62,6 +61,8 @@ class User:
 
         self.created_at = self.raw_model.created_at
         self.updated_at = self.raw_model.updated_at
+
+        self.context = Context(self)
 
     def expired(self):
         return datetime.now() > self.updated_at + USER_DATA_EXPIRE_IN

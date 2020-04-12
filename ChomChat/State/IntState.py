@@ -6,5 +6,5 @@ class IntState(State):
         super().__init__(parent, name, default)
 
     def _after_set(self, value, old, path):
-        self._value = int(self._value)
+        self._model.value = int(value)
         super()._after_set(value, old, path)

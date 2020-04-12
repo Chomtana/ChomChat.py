@@ -13,6 +13,7 @@ from providers.line.api import *
 # Init chat states
 import chat_states
 import sql_models
+from states.RootState import RootState
 
 DB_SQL_BASE.metadata.create_all(DB_SQL_ENGINE)
 

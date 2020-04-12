@@ -7,8 +7,8 @@ from outputer.basic.CardBasic import CardBasic
 from outputer.basic.Text import Text
 
 
-@RegisterChatState("food_intro")
-class FoodIntro(ChatState):
+@RegisterChatState("food_name")
+class FoodName(ChatState):
     def __init__(self, context: Context):
         # Code here
 
@@ -17,12 +17,11 @@ class FoodIntro(ChatState):
     def on_enter(self, from_: ChatState, args, is_interrupt: bool):
         # Code here
         self.context.outputer.send(CardBasic(
-            title='กินไรยัง ?',
+            title='กินไรไปเอ่ย ?',
+            body=Text('พิมพ์ชื่อ อาหาร และ เครื่องดื่ม มาเลย อย่างเช่น KFC, ชานมไข่มุก (ถ้ามีหลายอย่างคั่นด้วย ,)'),
             footer=[
-                Button("ซื้อข้าวกินมาแล้ว", MessageAction("ซื้อข้าวกินมาแล้ว")),
-                Button("ทำกินเองที่บ้าน", MessageAction("ทำกินเองที่บ้าน")),
-                Button("มีคนเลี้ยง", MessageAction("มีคนเลี้ยง")),
-                Button("ยังไม่ได้กินเลย", MessageAction("ยังไม่ได้กินเลย")),
+                Button("เลือกจากที่กินไป 7 วันล่าสุด", MessageAction("เลือก 7 วัน")),
+                Button("ไม่อยากบอกแล้ว", MessageAction("ไม่อยากบอกแล้ว"))
             ]
         ))
 
@@ -30,8 +29,10 @@ class FoodIntro(ChatState):
 
     def on_message(self, message: str):
         # Code here
-        if message == "ซื้อข้าวกินมาแล้ว": self.context.next("food_buy")
-        if message == "ทำกินเองที่บ้าน": self.context.next("food_self")
+        if message == "ไม่อยากบอกแล้ว": self.context.next("food_finish")
+        else:
+            self.context.state.record.name = message
+            self.context.next("food_name_success")
         super().on_message(message)
 
     def on_finish(self, args):

@@ -5,7 +5,7 @@ from config import *
 
 
 if TYPE_CHECKING:
-    from ChomChat import Context
+    from ChomChat import Context, Middleware
 
 
 class ChomChat:
@@ -13,6 +13,7 @@ class ChomChat:
     contexts: Dict[str, Context] = {}
     context_builders: Dict[str, Callable] = {}
     context_getters: Dict[str, Callable] = {}
+    middleware_store: List[Middleware] = []
 
     def register_chat_state(self, name: str, chat_state_class: type):
         self.chat_state_defs[name] = chat_state_class;
@@ -22,6 +23,9 @@ class ChomChat:
 
     def register_context_getter(self, provider_name: str, f: Callable):
         self.context_getters[provider_name] = f
+
+    def register_middleware(self, middleware: Middleware):
+        self.middleware_store.append(middleware)
 
     def build_context(self, provider_name: str, raw_data):
         return self.context_builders[provider_name](raw_data)

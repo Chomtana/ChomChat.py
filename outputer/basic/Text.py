@@ -11,5 +11,6 @@ class Text(Component):
     def format_line(self):
         return {
             "type": "text",
-            "text": self.message
+            "text": self.message,
+            "wrap": True
         }

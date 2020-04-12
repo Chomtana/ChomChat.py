@@ -16,7 +16,7 @@ class Null(ChatState):
 
     def on_message(self, message: str):
         # Code here
-
+        self.context.next("food_intro")
         super().on_message(message)
 
     def on_finish(self, args):

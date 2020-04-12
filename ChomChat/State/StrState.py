@@ -6,5 +6,5 @@ class StrState(State):
         super().__init__(parent, name, default)
 
     def _after_set(self, value, old, path):
-        self._value = str(self._value)
+        self._model.value = str(value)
         super()._after_set(value, old, path)

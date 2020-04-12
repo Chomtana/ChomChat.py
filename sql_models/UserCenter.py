@@ -10,6 +10,7 @@ class UserCenter(DB_SQL_BASE):
     id = Column(Integer, primary_key=True)
 
     users_raw = relationship("UserRaw", back_populates="user_center")
+    states = relationship("StateModel", back_populates="user_center")
 
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
